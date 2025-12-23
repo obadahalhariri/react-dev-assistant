@@ -2,7 +2,7 @@
 
 React Dev Assistant is a powerful VS Code extension designed to streamline the workflow of React developers. It automates bootstrapping, script management, and code quality tracking, allowing you to focus on building features rather than configuration.
 
-![Extension Icon](media/todo-icon.svg)
+![Extension Icon](media/react-dev-assistant-icon.png)
 
 ## 🚀 Features
 
