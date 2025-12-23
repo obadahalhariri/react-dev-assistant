@@ -1,0 +1,148 @@
+{
+  "name": "react-dev-assistant",
+  "displayName": "React Dev Assistant",
+  "publisher": "obadahAlHariri",
+  "description": "All-in-one React toolkit: Scaffold Vite projects, manage scripts, track technical debt (TODO/FIXME/etc.), and access documentation instantly.",
+  "version": "0.0.1",
+  "icon": "media/react-dev-assistant-icon.png",
+  "engines": {
+    "vscode": "^1.106.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "react-dev-assistant.createReactProject",
+        "title": "Create New React Project",
+        "category": "Developer Tools",
+        "icon": "$(add)"
+      },
+      {
+        "command": "react-dev-assistant.runScriptAssistant",
+        "title": "Run Script",
+        "category": "Developer Tools",
+        "icon": "$(play)"
+      },
+      {
+        "command": "react-dev-assistant.openDocumentationHub",
+        "title": "Open Documentation Hub",
+        "category": "Developer Sources",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openReactDocs",
+        "title": "Open React Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openReactHooks",
+        "title": "Open React Hooks Reference",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openViteDocs",
+        "title": "Open Vite Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openJSXDocs",
+        "title": "Open JSX Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openTSXDocs",
+        "title": "Open TypeScript React (TSX) Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openESLintRules",
+        "title": "Open ESLint Rules Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openReactTestingLibrary",
+        "title": "Open React Testing Library Docs",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      },
+      {
+        "command": "react-dev-assistant.openNodeDocs",
+        "title": "Open Node.js Documentation",
+        "category": "Documentation Hub",
+        "icon": "$(book)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "todoExplorer",
+          "title": "Annotation Explorer",
+          "icon": "media/todo-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "todoExplorer": [
+        {
+          "id": "todoTreeView",
+          "name": "TODO/FIXME/etc.",
+          "icon": "media/todo-icon.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "todo.highlightColor": {
+          "type": "string",
+          "default": "#FFCC00",
+          "description": "Highlight color for TODO/FIXME items"
+        },
+        "todo.customTags": {
+          "type": "array",
+          "default": [
+            "TODO",
+            "FIXME"
+          ],
+          "description": "Custom tags to scan for in code comments"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.106.1",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.0",
+    "eslint": "^9.39.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.3"
+  }
+}
