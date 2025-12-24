@@ -18,19 +18,19 @@
       {
         "command": "react-dev-assistant.createReactProject",
         "title": "Create New React Project",
-        "category": "Developer Tools",
+        "category": "React Dev Assistant",
         "icon": "$(add)"
       },
       {
         "command": "react-dev-assistant.runScriptAssistant",
         "title": "Run Script",
-        "category": "Developer Tools",
+        "category": "React Dev Assistant",
         "icon": "$(play)"
       },
       {
         "command": "react-dev-assistant.openDocumentationHub",
         "title": "Open Documentation Hub",
-        "category": "Developer Sources",
+        "category": "React Dev Assistant",
         "icon": "$(book)"
       },
       {
