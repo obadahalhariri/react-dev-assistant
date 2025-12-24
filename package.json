@@ -5,6 +5,10 @@
   "description": "All-in-one React toolkit: Scaffold Vite projects, manage scripts, track technical debt (TODO/FIXME/etc.), and access documentation instantly.",
   "version": "0.0.1",
   "icon": "media/react-dev-assistant-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/obadahalhariri/react-dev-assistant.git"
+  },
   "engines": {
     "vscode": "^1.106.1"
   },
