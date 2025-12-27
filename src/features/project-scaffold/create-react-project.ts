@@ -116,13 +116,46 @@ async function selectPackageManager(): Promise<string | undefined> {
 }
 
 /**
- * Run create-vite command
+ * Ask user to select project language (JS or TS)
  */
-function runCreateVite(pm: string, projectName: string) {
-    // On Windows and cross-platform, pass just the project folder name
-    return pm === 'npm'
-        ? `npm create vite@latest "${projectName}" --template react`
-        : `${pm} create vite "${projectName}" --template react`;
+async function selectProjectLanguage(): Promise<string | undefined> {
+    const items: vscode.QuickPickItem[] = [
+        {
+            label: 'TypeScript',
+            description: 'Recommended',
+            detail: 'Uses the "react-ts" template'
+        },
+        {
+            label: 'JavaScript',
+            description: 'Standard',
+            detail: 'Uses the "react" template'
+        }
+    ];
+
+    const selected = await vscode.window.showQuickPick(items, {
+        placeHolder: 'Select project language'
+    });
+
+    if (!selected) {
+        return undefined;
+    }
+
+    // Return the Vite template name based on selection
+    return selected.label === 'TypeScript' ? 'react-ts' : 'react';
+}
+
+/**
+ * Run create-vite command.
+ * * FIX / BUG: Added double dash "--" for npm to correctly pass the template argument.
+ */
+function runCreateVite(pm: string, projectName: string, template: string) {
+    if (pm === 'npm') {
+        // FIX: npm requires ' -- ' to pass arguments like --template to the script
+        return `npm create vite@latest "${projectName}" -- --template ${template}`;
+    } else {
+        // yarn and pnpm handle arguments directly
+        return `${pm} create vite "${projectName}" --template ${template}`;
+    }
 }
 
 
@@ -130,19 +163,19 @@ function runCreateVite(pm: string, projectName: string) {
  * Output channel for logging
  */
 const outputChannel = vscode.window.createOutputChannel('Bootstrapping Assistant');
-outputChannel.show(true);
+
 
 /**
  * Run a shell command and stream output to the output channel
  */
-
 function runCommand(command: string, cwd: string): Promise<void> {
     return new Promise((resolve, reject) => {
         const parts = command.split(' ');
         const cmd = parts[0];
         const args = parts.slice(1);
 
-        const process = spawn(cmd, args, { cwd, shell: true });
+        // Shell option is true to handle complex command strings
+        const process = spawn(command, { cwd, shell: true });
 
         process.stdout.on('data', (data) => {
             outputChannel.append(data.toString());
@@ -194,17 +227,35 @@ export async function createReactProject() {
     const packageManager = await selectPackageManager();
     if (!packageManager) { return; }
 
-    // 4. Confirm and start creation
-    const proceed = await vscode.window.showQuickPick(['Yes', 'Cancel'], {
-        placeHolder: `Create React project "${projectName}" in "${fullProjectPath}" using ${packageManager}?`
-    });
-    if (proceed !== 'Yes') { vscode.window.showInformationMessage('Project creation cancelled.'); return; }
+    // 4. Ask for Language (JS vs TS)
+    const templateName = await selectProjectLanguage();
+    if (!templateName) {
+        vscode.window.showInformationMessage("Project creation cancelled.");
+        return;
+    }
 
-    outputChannel.appendLine(`Starting project creation: ${projectName}`);
+    // 5. Confirm and start creation
+    const proceed = await vscode.window.showInformationMessage(
+        `Ready to scaffold project "${projectName}" (${templateName === 'react-ts' ? 'TypeScript' : 'JavaScript'}) in "${fullProjectPath}" using ${packageManager}?`,
+        //{ modal: true },
+        "Create Project",
+        "Cancel"
+    );
+
+    if (proceed !== 'Create Project') {
+        vscode.window.showInformationMessage('Project creation cancelled.');
+        return;
+    }
+
     outputChannel.show(true);
+    outputChannel.appendLine(`Starting project creation: ${projectName} [${templateName}]`);
 
-    // 5. Run create-vite
-    const createCommand = runCreateVite(packageManager, projectName);
+    // 6. Run create-vite with the selected template
+    const createCommand = runCreateVite(packageManager, projectName, templateName);
+
+    // Debug log to verify command
+    outputChannel.appendLine(`Running command: ${createCommand}`);
+
     try {
         await runCommand(createCommand, targetFolder);
         outputChannel.appendLine('✅ Vite project scaffolded successfully.');
@@ -214,7 +265,7 @@ export async function createReactProject() {
         return;
     }
 
-    // 6. Install dependencies (if needed)
+    // 7. Install dependencies (if needed)
     outputChannel.appendLine('Installing dependencies...');
     try {
         await runCommand(`${packageManager} install`, fullProjectPath);
@@ -223,7 +274,7 @@ export async function createReactProject() {
         vscode.window.showWarningMessage(`Dependency installation failed: ${err.message}`);
     }
 
-    // 7. Optional: Git init
+    // 8. Optional: Git init
     const defaultGitSetting = vscode.workspace
         .getConfiguration('bootstrappingAssistant')
         .get('gitInit', true);
@@ -245,7 +296,7 @@ export async function createReactProject() {
             await runCommand('git init', fullProjectPath);
             outputChannel.appendLine('✓ Git repository initialized.');
 
-            // NEW — Ask if the user wants to create the first commit
+            // Ask if the user wants to create the first commit
             const commitChoice = await vscode.window.showQuickPick(
                 ['Yes', 'No'],
                 {
@@ -272,7 +323,7 @@ export async function createReactProject() {
         outputChannel.appendLine('ℹ Git initialization skipped by user.');
     }
 
-    // 8. Ask whether to open the new project in the same window
+    // 9. Ask whether to open the new project in the same window
     const openChoice = await vscode.window.showInformationMessage(
         `🎉 React project "${projectName}" created successfully! Do you want to open it now?`,
         'Yes',

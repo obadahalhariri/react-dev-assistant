@@ -14,6 +14,7 @@ suite('packageCache', () => {
         // find a package.json in the workspace
         const pkgFiles = await vscode.workspace.findFiles('**/package.json', '**/node_modules/**', 1);
         if (!pkgFiles || pkgFiles.length === 0) {
+            console.warn('Skipping cache test: No package.json found in test workspace');
             assert.ok(true);
             return;
         }

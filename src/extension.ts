@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import { createReactProject } from './features/project-scaffold/create-react-project';
 import { runScriptAssistant } from './features/script-assistant/run-script-assistant';
-import { TodoScanner, TodoHighlighter, TodoTreeDataProvider } from './features/todo';
+import { AnnotationScanner, AnnotationHighlighter, AnnotationTreeDataProvider } from './features/annotations';
 import { initPackageJsonWatcher } from './utils/packageCache';
-import { registerDocumentationHub } from './features/documentation/documentationHub';
+import { registerDocumentationHub } from './features/documentation-access/documentationHub';
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Extension "react-dev-assistant" is now active!');
@@ -34,11 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
 	initPackageJsonWatcher(context);
 
 	// -----------------------
-	// Feature 3: TODO/FIXME Management
+	// Feature 3: Annotations Management
 	// -----------------------
 
 	// Initialize scanner
-	const scanner = new TodoScanner();
+	const scanner = new AnnotationScanner();
 	context.subscriptions.push(scanner);
 	scanner.scanWorkspace();
 
@@ -55,12 +55,12 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// Initialize highlighter
-	const highlighter = new TodoHighlighter();
+	const highlighter = new AnnotationHighlighter();
 	context.subscriptions.push(highlighter);
 
 	// Initialize tree view
-	const treeDataProvider = new TodoTreeDataProvider();
-	const treeView = vscode.window.createTreeView('todoTreeView', {
+	const treeDataProvider = new AnnotationTreeDataProvider();
+	const treeView = vscode.window.createTreeView('annotationTreeView', {
 		treeDataProvider
 	});
 	context.subscriptions.push(treeView);

@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 /**
  * Represents a single TODO/FIXME item
  */
-export interface TodoItem {
+export interface AnnotationItem {
     fileUri: vscode.Uri;
     line: number;
     column: number;
@@ -16,25 +16,25 @@ export interface TodoItem {
  * Result of a scan
  */
 export interface ScanResult {
-    items: TodoItem[];
+    items: AnnotationItem[];
 }
 
 /**
- * Event emitter for TODO scan completion
+ * Event emitter for Annotation scan completion
  */
-class TodoEventEmitter {
+class AnnotationEventEmitter {
     private emitter = new vscode.EventEmitter<ScanResult>();
     public readonly onScanCompleted = this.emitter.event;
-    private lastItems: TodoItem[] = [];
+    private lastItems: AnnotationItem[] = [];
 
     fire(result: ScanResult) {
         this.lastItems = result.items;
         this.emitter.fire(result);
     }
 
-    getLastScanItems(): TodoItem[] {
+    getLastScanItems(): AnnotationItem[] {
         return this.lastItems;
     }
 }
 
-export const TodoEvents = new TodoEventEmitter();
+export const AnnotationEvents = new AnnotationEventEmitter();

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { TodoEvents, TodoItem } from './todoEvents';
+import { AnnotationEvents, AnnotationItem } from './AnnotationEvents';
 
-export class TodoHighlighter {
+export class AnnotationHighlighter {
     private disposables: vscode.Disposable[] = [];
     private decorationType: vscode.TextEditorDecorationType;
 
@@ -16,14 +16,14 @@ export class TodoHighlighter {
             overviewRulerColor: color,
             overviewRulerLane: vscode.OverviewRulerLane.Right,
             after: {
-                contentText: ' ⬅ TODO/FIXME',
+                contentText: ' ⬅ REVIEW',
                 color,
                 fontStyle: 'italic'
             }
         });
 
         // Listen to scan results
-        TodoEvents.onScanCompleted((event) => {
+        AnnotationEvents.onScanCompleted((event) => {
             this.highlightItems(event.items);
         });
 
@@ -40,7 +40,7 @@ export class TodoHighlighter {
         });
     }
 
-    private highlightItems(items: TodoItem[]) {
+    private highlightItems(items: AnnotationItem[]) {
         const editor = vscode.window.activeTextEditor;
         if (!editor) {
             return;
@@ -58,8 +58,8 @@ export class TodoHighlighter {
 
     private highlightEditor(editor: vscode.TextEditor) {
         // Optionally, trigger a fresh scan for this file
-        // or use cached items from TodoEvents
-        const items = TodoEvents.getLastScanItems?.() ?? [];
+        // or use cached items from AnnotationEvents
+        const items = AnnotationEvents.getLastScanItems?.() ?? [];
         this.highlightItems(items);
     }
 

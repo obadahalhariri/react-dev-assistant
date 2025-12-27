@@ -4,14 +4,15 @@ import * as vscode from 'vscode';
 suite('Integration Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
 
+    // 1. Define ID
+    const EXTENSION_ID = 'ObadahAlHariri.react-dev-assistant';
+
     test('Extension should be present', () => {
-        const extensionId = 'my-extension.react-dev-assistant';
-        assert.ok(vscode.extensions.getExtension(extensionId), `Extension ${extensionId} not found`);
+        assert.ok(vscode.extensions.getExtension(EXTENSION_ID), `Extension ${EXTENSION_ID} not found`);
     });
 
     test('Commands should be registered', async () => {
-        const extensionId = 'my-extension.react-dev-assistant';
-        const ext = vscode.extensions.getExtension(extensionId);
+        const ext = vscode.extensions.getExtension(EXTENSION_ID);
 
         // 1. Ensure extension exists
         assert.ok(ext, 'Extension not found');

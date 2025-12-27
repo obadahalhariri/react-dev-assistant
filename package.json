@@ -1,8 +1,11 @@
 {
   "name": "react-dev-assistant",
   "displayName": "React Dev Assistant",
-  "publisher": "obadahAlHariri",
-  "description": "All-in-one React toolkit: Scaffold Vite projects, manage scripts, track technical debt (TODO/FIXME/etc.), and access documentation instantly.",
+  "publisher": "ObadahAlHariri",
+  "author": {
+    "name": "Obadah Al Hariri"
+  },
+  "description": "Streamline your React workflow with automated Vite scaffolding, centralized script management, technical debt tracking (TODO/FIXME), and instant documentation access.",
   "version": "0.0.1",
   "icon": "media/react-dev-assistant-icon.png",
   "repository": {
@@ -89,25 +92,25 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "todoExplorer",
-          "title": "Annotation Explorer",
-          "icon": "media/todo-icon.svg"
+          "id": "annotationExplorer",
+          "title": "Annotations Explorer",
+          "icon": "media/annotation-icon.svg"
         }
       ]
     },
     "views": {
-      "todoExplorer": [
+      "annotationExplorer": [
         {
-          "id": "todoTreeView",
-          "name": "TODO/FIXME/etc.",
-          "icon": "media/todo-icon.svg"
+          "id": "annotationTreeView",
+          "name": "TODO/FIXME items",
+          "icon": "media/annotation-icon.svg"
         }
       ]
     },
     "configuration": {
       "type": "object",
       "properties": {
-        "todo.highlightColor": {
+        "annotation.highlightColor": {
           "type": "string",
           "default": "#FFCC00",
           "description": "Highlight color for TODO/FIXME items"

@@ -214,8 +214,8 @@ export async function runScriptAssistant(): Promise<void> {
     }
 
     // Confirm and run
-    const run = await window.showInformationMessage(`Run: ${cmd}`, 'Run', 'Cancel');
-    if (run !== 'Run') { return; }
+    //const run = await window.showInformationMessage(`Run: ${cmd}`, 'Run', 'Cancel');
+    //if (run !== 'Run') { return; }
 
     const terminalName = `Run Script Assistant (${path.basename(folderPath)})`;
     let terminal = window.terminals.find(t => t.name === terminalName);

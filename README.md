@@ -25,7 +25,7 @@ Stop searching through `package.json` to remember script names.
 - Provides a clickable menu to Run, Debug, or Copy scripts.
 - **Smart Execution:** Detects if you need `cross-env` or `bash` for Windows compatibility.
 
-### 3. Annotation Manager (TODO/FIXME)
+### 3. Annotation Manager (TODO/FIXME Items)
 
 Keep track of technical debt directly in your editor.
 

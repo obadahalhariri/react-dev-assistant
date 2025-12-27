@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { TodoEvents, TodoItem } from './todoEvents';
+import { AnnotationEvents, AnnotationItem } from './AnnotationEvents';
 
-export class TodoScanner {
+export class AnnotationScanner {
     private disposables: vscode.Disposable[] = [];
     private tags: string[];
 
@@ -25,7 +25,7 @@ export class TodoScanner {
             1000 // Limit to max 1000 files to prevent crashing large repos
         );
 
-        const items: TodoItem[] = [];
+        const items: AnnotationItem[] = [];
 
         // Create ONE regex for all tags, case-insensitive
         const pattern = new RegExp(
@@ -58,7 +58,7 @@ export class TodoScanner {
         }
 
         // Send event to tree + highlighter
-        TodoEvents.fire({ items });
+        AnnotationEvents.fire({ items });
     }
 
     dispose() {
