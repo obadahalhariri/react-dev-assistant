@@ -54,12 +54,41 @@ Instant access to essential React ecosystem documentation.
 - VS Code v1.75+
 - Node.js installed on your system (for running scripts/bootstrapping).
 
+## 📂 Project Structure
+
+The extension follows a modular feature-based architecture. The source code is located in the `src` folder, organized as follows:
+
+```text
+react-dev-assistant/
+├── src/
+│   ├── features/                 # Core functionality modules
+│   │   ├── annotations/          # Logic for TODO/FIXME scanning & tree view
+│   │   ├── bootstrapping/        # Logic for creating new React projects (Vite wrapper)
+│   │   ├── documentation-access/ # Logic for the Documentation Hub & links
+│   │   └── script-assistant/     # Logic for parsing and running package.json scripts
+│   ├── utils/                    # Shared helper functions and types
+│   ├── test/                     # Unit and integration tests
+│   └── extension.ts              # Extension entry point (activates modules)
+├── media/                        # Icons and static assets
+├── package.json                  # Extension manifest and dependencies
+└── tsconfig.json                 # TypeScript configuration
+
+This structure ensures that each feature is self-contained, making the codebase easier to maintain and scale.
+
 ## 📅 Release Notes
 
 ### 0.0.1
 
-- Initial Release with Bootstrapper, Script Runner, and Todo Manager.
+**Initial Release**
+
+Introducing React Dev Assistant with core features to enhance your React development workflow:
+
+- **Project Bootstrapping Assistant** - Streamlined React project creation with Vite
+- **Script Runner** - Intelligent script detection and execution from `package.json`
+- **Annotation Manager** - TODO/FIXME tracking with visual highlighting
+- **Documentation Hub** - Quick access to essential React ecosystem resources
 
 ---
 
-**Enjoy coding with React Dev Assistant!**
+**Get started today and simplify your React development process!**
+```
