@@ -10,7 +10,7 @@ React Dev Assistant is a powerful VS Code extension designed to streamline the w
 
 Create new React applications effortlessly using **Vite**.
 
-- **Command:** `Create React Project`
+- **Command:** `Create New React Project`
 - GUI-based Wizard (No more memorizing CLI commands).
 - Supports `npm`, `yarn`, and `pnpm`.
 - Auto-validates project names and folder availability.
@@ -20,7 +20,7 @@ Create new React applications effortlessly using **Vite**.
 
 Stop searching through `package.json` to remember script names.
 
-- **Command:** `Run Script Assistant`
+- **Command:** `Run Script`
 - Auto-detects scripts in your workspace.
 - Provides a clickable menu to Run, Debug, or Copy scripts.
 - **Smart Execution:** Detects if you need `cross-env` or `bash` for Windows compatibility.
