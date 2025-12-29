@@ -95,6 +95,4 @@ Introducing React Dev Assistant with core features to enhance your React develop
 
 **Get started today and simplify your React development process!**
 
-```
-
-```
+---
