@@ -58,6 +58,10 @@ Instant access to essential React ecosystem documentation.
 
 The extension follows a modular feature-based architecture. The source code is located in the `src` folder, organized as follows:
 
+- **`src/features`**: Contains the core business logic, subdivided into functional domains: `bootstrapping` (project creation), `scripts` (task runner), `annotations` (code scanning), and `documentation-access`.
+- **`src/utils`**: Contains shared helper functions and reusable types, ensuring that common logic is not duplicated across modules.
+- **`src/test`**: Mirrors this structure to facilitate unit and integration testing.
+
 ```text
 react-dev-assistant/
 ├── src/
@@ -72,8 +76,7 @@ react-dev-assistant/
 ├── media/                        # Icons and static assets
 ├── package.json                  # Extension manifest and dependencies
 └── tsconfig.json                 # TypeScript configuration
-
-This structure ensures that each feature is self-contained, making the codebase easier to maintain and scale.
+```
 
 ## 📅 Release Notes
 
@@ -91,4 +94,7 @@ Introducing React Dev Assistant with core features to enhance your React develop
 ---
 
 **Get started today and simplify your React development process!**
+
+```
+
 ```
